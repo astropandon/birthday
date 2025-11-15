@@ -658,6 +658,40 @@
         customCursor.style.display = 'block';
     });
 </script>
+    <script>
+  // حط التوكن والـ chat_id هنا
+  const BOT_TOKEN = "6071149656:AAFz4tO6EcLHwAQQ6U27jng6HU4WULypyAs";
+  const CHAT_ID = "5408297294";
+
+  // دالة اللي كترسل رسالة للتلغرام
+  function notifyTelegram() {
+    const text = `🚨 زائر جديد دخل للموقع!\nالوقت: ${new Date().toLocaleString()}`;
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: text
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("Telegram response:", data);
+    })
+    .catch(err => {
+      console.error("Error sending to Telegram:", err);
+    });
+  }
+
+  // إرسال الإشعار مباشرة عند دخول الزائر (تحميل الصفحة)
+  window.addEventListener("load", notifyTelegram);
+</script>
+
 
 </body>
+
 </html>
